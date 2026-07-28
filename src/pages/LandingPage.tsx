@@ -18,10 +18,8 @@ export default function LandingPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
-    const action = params.get("action");
     const token = params.get("token");
 
-    console.log("action:", action);
     console.log("token:", token);
   }, []);
 
