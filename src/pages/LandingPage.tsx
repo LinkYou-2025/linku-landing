@@ -9,19 +9,33 @@ import iconLink from "../assets/landing/icon-link.svg";
 
 import FeatureChip from "../components/FeatureChip";
 
-import { useEffect } from "react";
+// TODO: 앱 출시 후 실제 URL로 변경
+const PLAY_STORE_URL =
+  "https://play.google.com/store/apps/details?id=com.linku";
+
+const APP_LINK_BASE =
+  "https://share.linkudeveloper.org/open";
 
 export default function LandingPage() {
-  // 공유 링크 URL(/open?action=share&token=~~)의 query parameter를 읽습니다.
+  // 공유 링크 URL(/open?token=~~)의 query parameter를 읽습니다.
   // 현재는 정상 수신 여부 확인을 위해 console.log만 출력하며,
   // 추후 딥링크 연동 시 해당 값을 앱 실행 및 설치 후 복귀 로직에 사용합니다.
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
 
-    const token = params.get("token");
+  console.log("token:", token);
 
-    console.log("token:", token);
-  }, []);
+  // TODO: 앱 출시 후 실제 Play Store URL로 변경
+  const handlePlayStore = () => {
+    window.location.href = PLAY_STORE_URL;
+  };
+
+  // TODO: App Link 확정 후 APP_LINK_BASE만 변경하면 됩니다.
+  const handleOpenApp = () => {
+    if (!token) return;
+
+    window.location.href = `${APP_LINK_BASE}?token=${token}`;
+  };
 
   return (
     <main className="min-h-screen bg-white flex justify-center overflow-x-hidden">
@@ -101,6 +115,7 @@ export default function LandingPage() {
         <section className="mt-[40px] px-[28px]">
 
           <button
+            onClick={handlePlayStore}
             className="
               w-full
               h-[52px]
@@ -127,6 +142,7 @@ export default function LandingPage() {
           </button>
 
           <button
+            onClick={handleOpenApp}
             className="
               mt-[8px]
               w-full
