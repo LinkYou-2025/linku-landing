@@ -9,7 +9,22 @@ import iconLink from "../assets/landing/icon-link.svg";
 
 import FeatureChip from "../components/FeatureChip";
 
+import { useEffect } from "react";
+
 export default function LandingPage() {
+  // 공유 링크 URL(/open?action=share&token=~~)의 query parameter를 읽습니다.
+  // 현재는 정상 수신 여부 확인을 위해 console.log만 출력하며,
+  // 추후 딥링크 연동 시 해당 값을 앱 실행 및 설치 후 복귀 로직에 사용합니다.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const action = params.get("action");
+    const token = params.get("token");
+
+    console.log("action:", action);
+    console.log("token:", token);
+  }, []);
+
   return (
     <main className="min-h-screen bg-white flex justify-center overflow-x-hidden">
       <div className="w-full max-w-[390px]">
