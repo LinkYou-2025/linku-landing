@@ -35,7 +35,8 @@ export default function LandingPage() {
     if (!token) return;
 
     window.location.href =
-      `linku://open?token=${encodeURIComponent(token)}`;
+      `intent://open?token=${encodeURIComponent(token)}` +
+      `#Intent;scheme=linku;package=com.linku;end`;
   };
 
   return (
