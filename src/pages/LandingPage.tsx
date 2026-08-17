@@ -13,8 +13,7 @@ import FeatureChip from "../components/FeatureChip";
 const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.linku";
 
-const APP_LINK_BASE =
-  "https://dev.linkudeveloper.org/open";
+const APP_LINK_BASE = "https://dev.linkudeveloper.org/open";
 
 export default function LandingPage() {
   // 공유 링크 URL(/open?token=~~)의 query parameter를 읽습니다.
@@ -30,13 +29,11 @@ export default function LandingPage() {
     window.location.href = PLAY_STORE_URL;
   };
 
-  // TODO: App Link 확정 후 APP_LINK_BASE만 변경하면 됩니다.
   const handleOpenApp = () => {
     if (!token) return;
 
     window.location.href =
-      `intent://open?token=${encodeURIComponent(token)}` +
-      `#Intent;scheme=linku;package=com.linku;end`;
+      `${APP_LINK_BASE}?token=${encodeURIComponent(token)}`;
   };
 
   return (
