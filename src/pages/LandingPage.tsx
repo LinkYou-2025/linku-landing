@@ -14,7 +14,7 @@ const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.linku";
 
 const APP_LINK_BASE =
-  "https://dev.linkudeveloper.org/open";
+  "https://share.linkudeveloper.org/open";
 
 export default function LandingPage() {
   // 공유 링크 URL(/open?token=~~)의 query parameter를 읽습니다.
