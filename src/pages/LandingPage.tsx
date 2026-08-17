@@ -34,10 +34,8 @@ export default function LandingPage() {
   const handleOpenApp = () => {
     if (!token) return;
 
-    window.open(
-      `${APP_LINK_BASE}?token=${encodeURIComponent(token)}`,
-      "_blank"
-    );
+    window.location.href =
+      `linku://open?token=${encodeURIComponent(token)}`;
   };
 
   return (
