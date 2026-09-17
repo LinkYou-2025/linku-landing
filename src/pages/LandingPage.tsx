@@ -12,8 +12,8 @@ const APP_LINK_BASE = "linku://open";
 const APP_OPEN_FALLBACK_DELAY_MS = 1500;
 
 export default function LandingPage() {
-  const [token, setToken] = useState(null);
-  const fallbackTimerRef = useRef(null);
+  const [token, setToken] = useState<string | null>(null);
+  const fallbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -29,12 +29,11 @@ export default function LandingPage() {
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
-        clearFallbackTimer();
-      }
+      if (document.hidden) clearFallbackTimer();
     };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       clearFallbackTimer();
@@ -48,8 +47,8 @@ export default function LandingPage() {
   const handleOpenApp = () => {
     if (!token) return;
 
-    // 앱이 설치되어 있지 않으면 페이지 hidden 전환이 일어나지 않으므로,
-    // 일정 시간 후에도 여전히 보이는 상태면 스토어로 폴백한다.
+    // 앱이 열리면 페이지가 hidden 상태가 되어 폴백 타이머를 취소한다.
+    // 앱이 설치되지 않은 경우 일정 시간 후 Play Store로 이동한다.
     fallbackTimerRef.current = setTimeout(() => {
       window.location.href = PLAY_STORE_URL;
     }, APP_OPEN_FALLBACK_DELAY_MS);
@@ -67,7 +66,9 @@ export default function LandingPage() {
           <h1 className="mt-[4px] text-center text-[26px] font-bold leading-[35px] tracking-[-0.65px] text-[#000208]">
             공유받은 폴더를
             <br />
-            <span className="bg-gradient-to-r from-[#2C6FFF] to-[#C800FF] bg-clip-text text-transparent">링큐</span>
+            <span className="bg-gradient-to-r from-[#2C6FFF] to-[#C800FF] bg-clip-text text-transparent">
+              링큐
+            </span>
             에서 열어보세요
           </h1>
         </section>
@@ -98,6 +99,7 @@ export default function LandingPage() {
         {/* CTA */}
         <section className="mt-[40px] px-[28px]">
           <button
+            type="button"
             onClick={handlePlayStore}
             className="w-full h-[52px] rounded-[18px] flex items-center justify-center gap-2 bg-gradient-to-r from-[#2C6FFF] to-[#C800FF] text-white text-[14px] font-bold"
           >
@@ -106,6 +108,7 @@ export default function LandingPage() {
           </button>
 
           <button
+            type="button"
             onClick={handleOpenApp}
             disabled={!token}
             className="mt-[8px] w-full h-[46px] rounded-[15px] border border-[#D4E1FF] bg-[#F8FAFF] text-[14px] font-bold shadow-[0_1.45px_2.9px_rgba(79,123,255,0.06)] disabled:opacity-40 disabled:cursor-not-allowed"
